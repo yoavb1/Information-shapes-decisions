@@ -1,0 +1,10 @@
+,0
+blocks,5
+events,20
+test_events,20
+ps,0.35
+v_tp,3
+v_fp,-3
+v_fn,-6
+v_tn,3
+dprime,2
