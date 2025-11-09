@@ -7,6 +7,9 @@ library(lme4);library(sjPlot);library(emmeans);
 
 
 df <- read.csv("data.csv");
+df$condition_fact <- as.factor(df$condition)
+df$block_fact <- as.factor(df$block)
+df$pd_fact <- as.factor(df$pd)
 
 block_with_ds <-df[df$pd == 1,]
 block_without_ds <-df[df$pd == 0,]
@@ -21,52 +24,10 @@ summary(pd)
 sjPlot::tab_model(pd)
 
 
-######----------PD - block 3----------######
-pd_glm <- glm(pd ~ condition + score_improvment,
-              data = df[df$block == 3,],
-              family = binomial(link = "logit"))
-summary(pd_glm)
-sjPlot::tab_model(pd_glm)
-
-######----------PD - per block----------######
-pd_glm <- glm(pd ~ condition + score_improvment + former_pd,
-              data = df[df$block == 4,],
-              family = binomial(link = "logit"))
-summary(pd_glm)
-sjPlot::tab_model(pd_glm)
-
-######----------PD - per block----------######
-pd_glm <- glm(pd ~ condition + score_improvment + former_pd,
-              data = df[df$block == 5,],
-              family = binomial(link = "logit"))
-summary(pd_glm)
-sjPlot::tab_model(pd_glm)
-
-
-
 ######----------Effective Sensitivity----------######
 sensitivity <-lme(d ~ cost + sensitivity + block + pd + 
                     sensitivity:pd + cost:pd, random = ~1|id,
                   data = df,  method = "ML", na.action = na.exclude)
-summary(sensitivity)
-sjPlot::tab_model(sensitivity)
-
-emmeans(sensitivity, pairwise ~ block)
-emmeans(sensitivity, pairwise ~ sensitivity | pd)
-
-
-# Sensitivity for PD=1 only
-sensitivity <-lme(d ~ cost + sensitivity + block,
-                  random = ~1|id,
-                  data = block_with_ds,  method = "ML", na.action = na.exclude)
-summary(sensitivity)
-sjPlot::tab_model(sensitivity)
-
-
-# Sensitivity for PD=0 only
-sensitivity <-lme(d ~ cost + sensitivity + block,
-                  random = ~1|id,
-                  data = block_without_ds,  method = "ML", na.action = na.exclude)
 summary(sensitivity)
 sjPlot::tab_model(sensitivity)
 
