@@ -408,7 +408,7 @@ def server(request):
     if request.method == "POST":
         user_name = request.POST['user name']
         password = request.POST['password']
-        if user_name == 'Administrator' and password == '0571JyY':
+        if user_name == 'XXXXX' and password == 'XXXXX':
             if request.POST['setting'] == 'DB':
                 save_db()
                 return render(request=request, template_name='main/Successful.html')
@@ -439,7 +439,7 @@ def parameters(request):
     if request.method == "POST":
         user_name = request.POST['user name']
         password = request.POST['password']
-        if user_name == 'Administrator' and password == '0571JyY':
+        if user_name == 'XXXXX' and password == 'XXXXX':
             if request.POST['Set parameters'] == 'Set parameters':
                 blocks = request.POST['number of blocks']
                 events = request.POST['number of events']
@@ -524,3 +524,4 @@ def progress(request):
                   context={'users': users, 'completed_users': users_completed, 'mean_time': mean_time,
                            'std_time': std_time,
                            'condition_1': condition_1, 'condition_2': condition_2, 'condition_3': condition_3})
+
