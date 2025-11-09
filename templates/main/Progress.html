@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<title>Experiment</title>
+<head>
+<link rel="icon" type="image/png" href="/static/favicon.png" >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 2%;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 1%;
+  margin: 1% 0 3% 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 3%;
+}
+
+/* Set a style for the submit button */
+.button {
+  background-color: #687C79;
+  border: none;
+  color: black;
+  padding: 8px 40px;
+  text-align: center;
+  font-size: 20px;
+  margin: 4px 2px;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<form method="POST">
+    {% csrf_token %}
+  <div class="container">
+    <h1>Progress</h1>
+    <hr>
+    <p><b>Users Start the Experiment: </b>{{ users }}</p>
+    <hr>
+    <p><b>Users Completed Experiment: </b>{{ completed_users }}</p>
+    <hr>
+    <p><b>Condition 1: </b>{{ condition_1 }}</p>
+    <p><b>Condition 2: </b>{{ condition_2 }}</p>
+    <p><b>Condition 3: </b>{{ condition_3 }}</p>
+    <hr>
+    <p><b>Time: </b>M={{ mean_time }}, SD={{ std_time }}</p>
+  </div>
+</form>
+
+</body>
+</html>

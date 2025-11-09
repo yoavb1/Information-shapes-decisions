@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<title>Experiment</title>
+<head>
+<link rel="icon" type="image/png" href="/static/favicon.png" >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 2%;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 1%;
+  margin: 1% 0 3% 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 3%;
+}
+
+/* Set a style for the submit button */
+.button {
+  background-color: #687C79;
+  border: none;
+  color: black;
+  padding: 8px 40px;
+  text-align: center;
+  font-size: 20px;
+  margin: 4px 2px;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<form method="POST">
+    {% csrf_token %}
+  <div class="container">
+    <h1>Sever</h1>
+    <p>Enter user name and password</p>
+    <hr>
+    <label for="name"><b>User Name</b></label>
+    <input type="text" placeholder="Enter Name" name="user name" id="user name" required>
+    <hr>
+    <label for="password"><b>Password</b></label>
+    <input type="text" placeholder="Enter Password" name="password" id="password" required>
+    <hr><hr>
+    <label for="Blocks"><b>Number of blocks</b></label>
+    <input type="text" placeholder="Enter number of blocks" name="number of blocks" id="number of blocks" required>
+    <hr>
+    <label for="Events"><b>Number of events</b></label>
+    <input type="text" placeholder="Enter number of events in each block" name="number of events" id="number of events" required>
+    <hr>
+    <label for="Events"><b>Number of test events</b></label>
+    <input type="text" placeholder="Enter number of test events in each block" name="number of test events" id="number of test events" required>
+    <hr>
+    <label for="Ps"><b>Probability to signal</b></label>
+    <input type="text" placeholder="Enter probability to signal" name="probability to signal" id="probability to signal" required>
+    <hr>
+    <label for="V_TP"><b>V_TP</b></label>
+    <input type="text" placeholder="Enter V_TP" name="V_TP" id="V_TP" required>
+    <hr>
+    <label for="V_FP"><b>V_FP</b></label>
+    <input type="text" placeholder="Enter V_FP" name="V_FP" id="V_FP" required>
+    <hr>
+    <label for="V_FN"><b>V_FN</b></label>
+    <input type="text" placeholder="Enter V_FN" name="V_FN" id="V_FN" required>
+    <hr>
+    <label for="V_TN"><b>V_TN</b></label>
+    <input type="text" placeholder="Enter V_TN" name="V_TN" id="V_TN" required>
+    <hr>
+    <label for="d'"><b>d'</b></label>
+    <input type="text" placeholder="Enter d'" name="d'" id="d'" required>
+
+      <input class = "button" type = "submit" name ="Set parameters" value = "Set parameters" />
+  </div>
+</form>
+
+</body>
+</html>

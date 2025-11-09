@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<title>Experiment</title>
+<head>
+<link rel="icon" type="image/png" href="/static/favicon.png" >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+    <style>
+        @font-face {
+          font-family: 'digital-7';
+          src: local('digital-7'),
+               url('../static/fonts/digital-7.ttf') format("truetype");
+            url('../static/fonts/Backslash-RpJol.ttf') format("truetype");
+        }
+        body, html {
+            margin: 0;
+            font-family: Arial;
+            color: white;
+        }
+
+        .container {
+            width: 301px;
+            height: 370px;
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -150px; /*set to a negative number 1/2 of your width*/
+            margin-top: -200px; /*set to a negative number 1/2 of your height*/
+            border: 1px solid black;
+            background-image: url('../../static/images/Glucometer/clean.png');
+        }
+
+        .div_head{
+            width: 300px;
+            height: 45px;
+        }
+
+        .div_event {
+            width: 120px;
+            height: 45px;
+            float: left;
+        }
+
+        .div_score {
+            width: 120px;
+            height: 45px;
+            float: right;
+        }
+
+        .div_alarm {
+            width: 300px;
+            height: 120px;
+            border: 1px solid transparent;
+        }
+        .div_value {
+            width: 300px;
+            height: 140px;
+            border: 1px solid transparent;
+        }
+        .div_buttons {
+            width: 300px;
+            height: 75px;
+        }
+
+        .text_event {
+            font-size:18px;
+            color: white;
+            margin: 12px;
+            text-align: center;
+            padding-right: 10%;
+        }
+
+        .text_score {
+            font-size:18px;
+            color: white;
+            margin: 12px;
+            text-align: center;
+            padding-right: 10%;
+        }
+
+        .text_alarm {
+            margin: 15px;
+            font-family: Backslash-RpJol;
+            font-size:25px;
+            color: white;
+            text-align: center;
+        }
+
+        .text_pi {
+            margin: -20px;
+            font-family: digital-7;
+            font-size:80px;
+            color: white;
+            text-align: center;
+            padding-bottom: 10%;
+        }
+
+
+        .swal-wide{
+            width: 400px; !important;
+            height: 100%; !important;
+        }
+
+        :root {
+          --colorShadeA: rgb(0, 0, 0);
+          --colorShadeC: rgb(0, 0, 0);
+          --colorShadeD: rgb(131, 126, 126);
+          --colorShadeE: rgb(131, 126, 126);
+        }
+
+        button {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            outline: none;
+            border: 0;
+            vertical-align: middle;
+            text-decoration: none;
+            font-size: 12px;
+            color:var(--colorShadeA);
+            font-weight: 700;
+            font-family: inherit;
+        }
+
+        button.big-button {
+            padding: 10px 10px;
+            border: 2px solid var(--colorShadeA);
+            border-radius: 15px;
+            background: var(--colorShadeE);
+            transform-style: preserve-3d;
+            transition: all 175ms cubic-bezier(0, 0, 1, 1);
+        }
+        button.big-button::before {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--colorShadeC);
+            border-radius: inherit;
+            box-shadow: 0 0 0 2px var(--colorShadeB), 0 5px 0 0 var(--colorShadeA);
+            transform: translate3d(0, 0.75em, -1em);
+            transition: all 175ms cubic-bezier(0, 0, 1, 1);
+        }
+
+
+        button.big-button:hover {
+          background: var(--colorShadeD);
+          transform: translate(0, 5px);
+        }
+
+        button.big-button:hover::before {
+            transform: translate3d(0, 5px, -5px);
+        }
+
+        button.big-button:active {
+            transform: translate(0px, 5px);
+        }
+
+        button.big-button:active::before {
+            transform: translate3d(0, 0, -5px);
+            box-shadow: 0 0 0 2px var(--colorShadeB), 0 5px 0 0 var(--colorShadeB);
+        }
+
+    </style>
+    <title>Game</title>
+</head>
+    <body>
+        <div class="container">
+            <div class="div_head">
+                <div class="div_event">
+                    <h2 class="text_event"> {{ event}}/20</h2>
+                </div>
+                <div class="div_score">
+                    <h2 class="text_score">score: {{ score }}</h2>
+                </div>
+            </div>
+            <div class = div_alarm>
+                {% if alert_system == 1 %}
+                    <b><p class = "text_alarm">Alarm Output:</p></b>
+                    {% if alarm_or_not == 'Alarm' %}
+                        <center>
+                            <svg width=100 height=20 >
+                                <rect width=100 height=20 style="fill:#DD0707;" />
+                            </svg>
+                        </center>
+                    {% endif %}
+                    {% if alarm_or_not == 'No Alarm' %}
+                        <center>
+                            <svg width=100 height=20 >
+                                <rect width=100 height=20 style="fill:#65A569;" />
+                            </svg>
+                        </center>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class = div_value>
+                <p class="text_pi">{{ Numeric_Value }}</p>
+            </div>
+            <div class="div_buttons">
+               <form method = "POST">
+                    <center>
+                        {% csrf_token %}
+                        {% if saving_alert == 'False' %}
+                            {% if signal_or_noise == 'signal' %}
+                                <button onclick="Alert('Correct classification')"
+                                class = "big-button" type = "submit" name ="Classification" value = "Intervention" />Intervention</button>
+                                <button onclick="Alert('Wrong classification')"
+                                class = "big-button" type = "submit" name ="Classification" value = "No intervention" />No intervention</button>
+                            {% endif %}
+                            {% if signal_or_noise == 'noise' %}
+                                <button onclick="Alert('Wrong classification')"
+                                class = "big-button" type = "submit" name ="Classification" value = "Intervention" />Intervention</button>
+                                <button onclick="Alert('Correct classification')"
+                                class = "big-button" type = "submit" name ="Classification" value = "No intervention" />No intervention</button>
+                            {% endif %}
+                        {% endif %}
+                        {% if saving_alert == 'True' %}
+                            {% if signal_or_noise == 'signal' %}
+                                <button onclick="Alert('Wait')"
+                                class = "big-button" type = "submit" name ="Classification" value = "Intervention" />Intervention</button>
+                                <button onclick="Alert('Wait')"
+                                class = "big-button" type = "submit" name ="Classification" value = "No intervention" />No intervention</button>
+                            {% endif %}
+                            {% if signal_or_noise == 'noise' %}
+                                <button onclick="Alert('Wait')"
+                                class = "big-button" type = "submit" name ="Classification" value = "Intervention" />Intervention</button>
+                                <button onclick="Alert('Wait')"
+                                class = "big-button" type = "submit" name ="Classification" value = "No intervention" />No intervention</button>
+                            {% endif %}
+                        {% endif %}
+                    </center>
+                </form>
+            </div>
+                <script>
+                    function Alert(answer)
+                    {
+                        if (answer == 'Wrong classification')
+                        {
+                            swal({
+                                  type: 'error',
+                                  title: answer,
+                                  position: 'top',
+                                  customClass: 'swal-wide',
+                                  showCancelButton: false, // There won't be any cancel button
+                                  showConfirmButton: false // There won't be any confirm button
+                                });
+                        }
+                        if (answer == 'Correct classification')
+                        {
+                            swal({
+                                  type: 'success',
+                                  title: answer,
+                                  position: 'top',
+                                  customClass: 'swal-wide',
+                                  showCancelButton: false, // There won't be any cancel button
+                                  showConfirmButton: false // There won't be any confirm button
+                                });
+                        }
+                        if (answer == 'Wait')
+                        {
+                            swal({
+                                  type: 'warning',
+                                  title: 'Please wait before closing the window',
+                                  position: 'top',
+                                  customClass: 'swal-wide',
+                                  showCancelButton: false, // There won't be any cancel button
+                                  showConfirmButton: false // There won't be any confirm button
+                                });
+                        }
+                    }
+            </script>
+        </div>
+    </body>
+</html>

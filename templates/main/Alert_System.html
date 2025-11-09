@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<title>Experiment</title>
+<head>
+<link rel="icon" type="image/png" href="/static/favicon.png" >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: whitesmoke;
+}
+
+/* Add padding to containers */
+.container {
+    width: 300px;
+    height: 450px;
+    position:absolute;
+    padding: 4px 4px;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px; /*set to a negative number 1/2 of your width*/
+    margin-top: -220px; /*set to a negative number 1/2 of your height*/
+    border: 1px solid black;
+    background: lightgray;
+}
+
+.div_note {
+    padding: 0px 0px;
+    margin: 0px 0px;
+    width: 300px;
+    height: 95px;
+}
+.div_score {
+    width: 300px;
+    height: 100px;
+}
+.div_buttons {
+    width: 300px;
+    height: 230px;
+}
+.div_button_purchase {
+    width: 300px;
+    height: 100px;
+}
+.div_button_not_purchase {
+    width: 300px;
+    height: 130px;
+}
+.div_button_confirm {
+    width: 300px;
+    height: 25px;
+}
+
+.note_text{
+  padding: 0px 0px;
+  margin: 0px 0px;
+  text-align: center;
+  font-size:15px;
+  font-weight: bold;
+}
+.score_text{
+  padding: 0px 0px;
+  margin: 0px 0px;
+  text-align: center;
+  font-size:20px;
+  font-weight: bold;
+}
+
+.not_pressed {
+  background-color: #687C79;
+  border: none;
+  color: black;
+  padding: 4px 2px;
+  text-align: center;
+  font-size:15px;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.pressed {
+  background-color: #1ECB47;
+  opacity: 0.8;
+  border: none;
+  color: black;
+  padding: 4px 2px;
+  text-align: center;
+  font-size:15px;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.button {
+  background-color: #1ECB47;
+  border: none;
+  color: black;
+  transition: 0.3s;
+  padding: 4px 2px;
+  text-align: center;
+  font-size:15px;
+  {#margin: 0.5vw 0.5vw;#}
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+</style>
+    <title>Game</title>
+</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <body>
+        <div class="container">
+            <div class="div_note">
+                <p class="note_text">Remember, purchasing the alerting system will
+                    deduct {{ cost }} points from your budget</p>
+            </div>
+            <div class="div_score">
+                <p class="score_text">score: {{ score }}</p>
+            </div>
+            <div class="div_buttons">
+                <form method = "POST">
+                    <div class="div_button_purchase">
+                        {% csrf_token %}
+                        {% if Alert_System == 0 %}
+                            {% if default == 1 %}
+                                <center><input class = "not_pressed" type = "submit" name ="Settings" value = "Purchase the alert system" /></center>
+                            {% endif %}
+                            {% if default == 0 %}
+                                <center><input class = "not_pressed" type = "submit" name ="Settings" value = "Purchase the alert system" /></center>
+                            {% endif %}
+                        {% endif %}
+                        {% if Alert_System == 1 %}
+                            {% if default == 1 %}
+                                <center><input class = "pressed" type = "submit" name ="Settings" value = "Purchase the alert system" /></center>
+                            {% endif %}
+                            {% if default == 0 %}
+                                <center><input class = "not_pressed" type = "submit" name ="Settings" value = "Purchase the alert system"/></center>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="div_button_not_purchase">
+                        {% if Alert_System == 1 %}
+                            {% if default == 1 %}
+                                <center><input class = "not_pressed" type = "submit" name ="Settings" value = "Do not purchase the alert system" /></center>
+                            {% endif %}
+                            {% if default == 0 %}
+                                <center><input class = "not_pressed" type = "submit" name ="Settings" value = "Do not purchase the alert system" /></center>
+                            {% endif %}
+                        {% endif %}
+                        {% if Alert_System == 0 %}
+                            {% if default == 1 %}
+                                <center><input class = "pressed" type = "submit" name ="Settings" value = "Do not purchase the alert system" /></center>
+                            {% endif %}
+                            {% if default == 0 %}
+                                <center><input class = "not_pressed" type = "submit" name ="Settings" value = "Do not purchase the alert system" /></center>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="div_button_confirm">
+                        {% if default == 1 %}
+                            <input class = "button" type = "submit" name ="Settings" value = "Confirm" />
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

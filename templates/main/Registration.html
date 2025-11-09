@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<title>Experiment</title>
+<head>
+<link rel="icon" type="image/png" href="/static/favicon.png" >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: whitesmoke;
+}
+
+/* Add padding to containers */
+.container {
+    width: 300px;
+    height: 450px;
+    position:absolute;
+    padding: 4px 4px;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px; /*set to a negative number 1/2 of your width*/
+    margin-top: -220px; /*set to a negative number 1/2 of your height*/
+    border: 1px solid black;
+    background: lightgray;
+}
+
+.div_text {
+    width: 300px;
+    height: 418px;
+}
+
+.div_button {
+    width: 300px;
+    height: 25px;
+}
+.div_button_left {
+    width: 145px;
+    height: 30px;
+    float: left;
+}
+.div_button_right {
+    width: 145px;
+    height: 30px;
+    float: right;
+}
+
+.head_text{
+  padding: 0px 0px;
+  margin: 0px 0px;
+  text-align: left;
+  font-size:20px;
+}
+
+.p_text{
+  padding: 2px 0px;
+  margin: 2px 0px;
+  text-align: justify;
+  font-size:14px;
+}
+
+/* Set a style for the submit button */
+.button {
+  background-color: #687C79;
+  border: none;
+  color: black;
+  transition: 0.3s;
+  padding: 4px 2px;
+  text-align: center;
+  font-size:15px;
+  {#margin: 0.5vw 0.5vw;#}
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  width: 100%;
+}
+</style>
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+  <div class="container">
+        <div class="div_text">
+            <p class = "head_text"><b>Welcome</b></p>
+            <p class = "p_text"></p>
+            <p class = "p_text">The study should take about 15 minutes, but you are free to go through it at your own pace.</p>
+            <p class = "p_text">If you complete the study, you will receive payment for your participation.</p>
+            <p class = "p_text">A number of participants may receive an extra bonus of 10$.
+                The chances of you receiving the bonus increase, the more points you accumulate during the experiment.</p>
+            <p class = "p_text">Your participation in this research is voluntary. You have the right to withdraw at any point during the
+                study, for any reason, and without any negative consequences for you.</p>
+
+
+        </div>
+        <p class="p_text"></p>
+        <div class="div_button">
+            <div class="div_button_left">
+                 <input class = "button" type = "submit" name ="Continue" value = "Continue"/>
+            </div>
+            <div class="div_button_right">
+                 <input class = "button" type = "submit" name ="Continue" value = "End the experiment"/>
+            </div>
+        </div>
+  </div>
+</form>
+
+</body>
+</html>

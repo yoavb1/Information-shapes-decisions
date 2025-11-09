@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<title>Experiment</title>
+<head>
+<link rel="icon" type="image/png" href="/static/favicon.png" >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 2%;
+  background-color: white;
+}
+
+/* Set a style for the submit button */
+.button {
+  background-color: #687C79;
+  border: none;
+  color: black;
+  padding: 8px 60px;
+  text-align: center;
+  font-size: 20px;
+  margin: 2px 2px;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.registerbtn:hover {
+  opacity: 2;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<form method="POST">
+    {% csrf_token %}
+  <div class="container">
+    <h1>Changes made Successfully</h1>
+    <hr>
+  </div>
+</form>
+
+</body>
+</html>
